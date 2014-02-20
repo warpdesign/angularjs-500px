@@ -3,7 +3,7 @@ angularjs-500px
 
 A little 500px popular feed viewer using AngularJS.
 
-This AngularJS simply loads up 'popular' feed from 500px and displays
+This small AngularJS app simply loads up 'popular' feed from 500px and displays
 
 Demo
 ====
