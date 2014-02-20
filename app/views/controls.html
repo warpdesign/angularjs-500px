@@ -1,0 +1,8 @@
+<my-picture-list pics="pics" load-picture="loadPicture(id)"></my-picture-list>
+<!-- controls here -->
+<my-picture-info ng-init="visible = false" ng-model="photo" ng-show="visible"></my-picture-info>
+<div class="settings">
+    <div class="bt slideshow {{isActive('slideshow')}}" id="playPause" title="start/stop slideshow mode (shortcut: space)" ng-click="toggleSlide()">►</div>
+    <div class="bt fullscreen {{isActive('fullscreen')}}" title="toggle fullscreen (shortcut: f)" ng-click="toggleFS()">[+]</div>
+    <div class="bt sound {{isActive('sound')}}" title="play/pause music (shortcut: s)" ng-click="toggleSound()">♫</div>
+</div>

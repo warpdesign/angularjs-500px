@@ -1,0 +1,5 @@
+<ul>
+	<li ng-repeat="photo in pics">
+		<img src="{{photo.image_url}}" alt="{{photo.name}}" ng-click="loadPicture(photo.id)" id="photo_{{photo.id}}" />
+	</li>
+</ul>
