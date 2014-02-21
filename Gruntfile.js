@@ -24,7 +24,22 @@ module.exports = function (grunt) {
       app: require('./bower.json').appPath || 'app',
       dist: 'dist'
     },
-
+      
+    express: {
+            options: {
+                port: process.env.PORT || 9000
+            },
+            dev: {
+                options: {
+                    script: 'server.js'
+                }
+            },
+            prod: {
+                options: {
+                    script: 'server.js'
+                }
+            }
+        },
     // Watches files for changes and runs tasks based on the changed files
     watch: {
       js: {
@@ -45,51 +60,70 @@ module.exports = function (grunt) {
       gruntfile: {
         files: ['Gruntfile.js']
       },
-      livereload: {
-        options: {
-          livereload: '<%= connect.options.livereload %>'
-        },
-        files: [
-          '<%= yeoman.app %>/{,*/}*.html',
-          '.tmp/styles/{,*/}*.css',
-          '<%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
-        ]
-      }
+      express: {
+                files: [
+                    '<%= yeoman.app %>/{,*//*}*.html',
+                    '{.tmp,<%= yeoman.app %>}/styles/{,*//*}*.css',
+                    '{.tmp,<%= yeoman.app %>}/scripts/{,*//*}*.js',
+                    '<%= yeoman.app %>/images/{,*//*}*.{png,jpg,jpeg,gif,webp,svg}',
+                    'server.js',
+                    'server/{,*//*}*.{js,json}'
+                ],
+                tasks: ['express:dev'],
+                options: {
+                    livereload: true,
+                    nospawn: true //Without this option specified express won't be reloaded
+                }
+            }        
+//      livereload: {
+//        options: {
+//          livereload: '<%= connect.options.livereload %>'
+//        },
+//        files: [
+//          '<%= yeoman.app %>/{,*/}*.html',
+//          '.tmp/styles/{,*/}*.css',
+//          '<%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
+//        ]
+//      }
     },
-
+      open: {
+            server: {
+                url: 'http://localhost:<%= express.options.port %>'
+            }
+        },      
     // The actual grunt server settings
-    connect: {
-      options: {
-        port: 9000,
-        // Change this to '0.0.0.0' to access the server from outside.
-        hostname: 'localhost',
-        livereload: 35729
-      },
-      livereload: {
-        options: {
-          open: true,
-          base: [
-            '.tmp',
-            '<%= yeoman.app %>'
-          ]
-        }
-      },
-      test: {
-        options: {
-          port: 9001,
-          base: [
-            '.tmp',
-            'test',
-            '<%= yeoman.app %>'
-          ]
-        }
-      },
-      dist: {
-        options: {
-          base: '<%= yeoman.dist %>'
-        }
-      }
-    },
+//    connect: {
+//      options: {
+//        port: 9000,
+//        // Change this to '0.0.0.0' to access the server from outside.
+//        hostname: 'localhost',
+//        livereload: 35729
+//      },
+//      livereload: {
+//        options: {
+//          open: true,
+//          base: [
+//            '.tmp',
+//            '<%= yeoman.app %>'
+//          ]
+//        }
+//      },
+//      test: {
+//        options: {
+//          port: 9001,
+//          base: [
+//            '.tmp',
+//            'test',
+//            '<%= yeoman.app %>'
+//          ]
+//        }
+//      },
+//      dist: {
+//        options: {
+//          base: '<%= yeoman.dist %>'
+//        }
+//      }
+//    },
 
     // Make sure code styles are up to par and there are no obvious mistakes
     jshint: {
@@ -327,15 +361,16 @@ module.exports = function (grunt) {
 
   grunt.registerTask('serve', function (target) {
     if (target === 'dist') {
-      return grunt.task.run(['build', 'connect:dist:keepalive']);
+      return grunt.task.run(['build', 'express:dist:keepalive']);
     }
 
     grunt.task.run([
       'clean:server',
       'bower-install',
-      'concurrent:server',
+//      'concurrent:server',
       'autoprefixer',
-      'connect:livereload',
+      'express:dev',
+//      'connect:livereload',
       'watch'
     ]);
   });
