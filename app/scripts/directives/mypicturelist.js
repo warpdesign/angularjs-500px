@@ -15,7 +15,6 @@ angular.module('angularjs500pxAutomateApp')
                 }
             }],
             link: function(scope, element, attrs, ctrl) {
-                debugger;
                 var active = null;
                 element.bind('click', function(e) {
                     if (e.toElement.tagName !== 'IMG') {

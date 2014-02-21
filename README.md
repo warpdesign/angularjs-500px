@@ -20,7 +20,7 @@ This small application was developped to getting familiar with AngularJS and the
 * Yeoman
 * Npm
 
-This is a direct rewrite of an old application I wrote using jQuery and CSS3 a few years back: [CSS 3 experiments](experiments.warpdesign.fr/500photos/)
+This is a direct rewrite of an old application I wrote using jQuery and CSS3 a few years back: [CSS 3 experiments](http://experiments.warpdesign.fr/500photos/)
 
 How to install ?
 ================

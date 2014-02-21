@@ -14,7 +14,6 @@ angular.module('angularjs500pxAutomateApp')
         }
         
         photosProvider.getList(feed).then(function(pics) {
-            debugger;
             $scope.pics = pics;
         }, function() {
             console.log('could not get photos');
