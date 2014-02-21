@@ -26,3 +26,9 @@ How to install ?
 ================
 
 Type `npm install` in a shell and `grunt server` to run the app in development mode and wait for modifications or `grunt build` to build the application.
+
+Since 500px API access needs an API key, you need to create a json file called 'consumer_key.json' with your consumer_key at the root of the project to be able to use the app in development:
+
+`{ "500px": "CONSUMER_KEY" }`
+
+See: [500px applications](http://500px.com/settings/applications?from=developers)
