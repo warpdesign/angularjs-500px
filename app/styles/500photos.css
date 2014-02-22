@@ -345,11 +345,10 @@ a:hover{
 	height:50px;
 	margin:auto;
     padding:0 7px;
-	text-shadow:1px 1px 0 rgba(0,0,0,.9), -1px -1px 0 rgba(0,0,0,.9), 1px 1px 1px rgba(224,224,224,.8), -1px -1px 1px rgba(224,224,224,.8);
 }
 
-.bt:hover{
-	color:#23a9c6;
+.bt.active{
+	color:transparent;
 }
 
 .bt::after{
@@ -359,8 +358,12 @@ a:hover{
     bottom:0;
     top:0;
     padding:0 7px;
-    background-color:black;
     text-align:center;
+	color:white;
+}
+
+.bt.active::after{
+	color:#23a9c6;
 }
 
 .bt.slideshow.active::after{
