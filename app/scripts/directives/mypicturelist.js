@@ -1,8 +1,7 @@
 (function() {
 'use strict';
-
 angular.module('angularjs500pxAutomateApp')
-  .directive('myPictureList', ['event', function(event) {
+  .directive('myPictureList', ['event', '$timeout', function(event, $timeout) {
         return {
             restrict: 'E',
             scope: {
@@ -15,19 +14,10 @@ angular.module('angularjs500pxAutomateApp')
                 }
             }],
             link: function(scope, element, attrs, ctrl) {
-                var active = null;
-                element.bind('click', function(e) {
-                    if (e.toElement.tagName !== 'IMG') {
-                        return;
-                    } else {
-                        event.emit('controls.stopSlide');
-                    }
-                });
-
-                event.on('viewer.loaded', function(event, data) {
+				function setActiveThumb(id) {
                     var domElement = element[0],
                         currentActive = domElement.querySelector('.active'),
-                        newElement = domElement.querySelector('#photo_' + data.id);
+                        newElement = domElement.querySelector('#photo_' + id);
 
                     if (currentActive) {
                         currentActive.classList.remove('active');
@@ -38,6 +28,25 @@ angular.module('angularjs500pxAutomateApp')
                     } else {
                         console.log('oops, could not find new selected element');
                     }
+				}
+
+                element.bind('click', function(e) {
+                    if (e.toElement.tagName !== 'IMG') {
+                        return;
+                    } else {
+                        event.emit('controls.stopSlide');
+                    }
+                });
+
+				scope.$watch('pics', function() {
+					// use $timeout to be sure template has been rendered by Angular
+					$timeout(function() {
+						setActiveThumb(scope.pics[0].id);
+					});
+				});
+
+                event.on('viewer.loaded', function(event, data) {
+					setActiveThumb(data.id);
                 });
             }
         };

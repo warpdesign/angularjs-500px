@@ -44,7 +44,7 @@ angular.module('angularjs500pxAutomateApp')
                 loadFromIndex: function(index) {
                     var id = pictures[typeof index !== 'undefined' ? index : currentIndex].id;
 
-                    this.loadFromId(id);
+                    return this.loadFromId(id);
                 },
                 startSlideShow: function() {
                     if (slideshow === false) {
@@ -65,6 +65,7 @@ angular.module('angularjs500pxAutomateApp')
                             var res = data;
                             loader.loadImage(data.photo['image_url']).then(function() {
                                 event.emit('viewer.loaded', res.photo);
+								console.log('[Viewer] SENT: loaded');
                                 if (slideshow === true) {
                                     that.nextSlide();
                                 }

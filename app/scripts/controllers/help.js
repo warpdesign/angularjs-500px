@@ -23,7 +23,7 @@ angular.module('angularjs500pxAutomateApp')
             });
 
             $scope.hide = function() {
-                $timeout($scope.toggleVisibility, 2000);
+                $timeout($scope.toggleVisibility, 5000);
             };
         }
     ]);
