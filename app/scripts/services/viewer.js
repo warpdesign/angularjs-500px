@@ -49,7 +49,7 @@ angular.module('angularjs500pxAutomateApp')
                 startSlideShow: function() {
                     if (slideshow === false) {
                         slideshow = true;
-                        this.nextSlide();
+                        this.gotoSlide(1);
                     }
                 },
                 loadFromId: function(id) {
@@ -67,7 +67,7 @@ angular.module('angularjs500pxAutomateApp')
                                 event.emit('viewer.loaded', res.photo);
 								console.log('[Viewer] SENT: loaded');
                                 if (slideshow === true) {
-                                    that.nextSlide();
+                                    that.gotoSlide(1);
                                 }
                                 console.log('photo loaded');
                                 def.resolve(res);
@@ -80,18 +80,22 @@ angular.module('angularjs500pxAutomateApp')
                         return def.promise;
                     }
                 },
-                nextSlide: function() {
-                    var that = this;
+                gotoSlide: function(inc, wait) {
+                    var that = this,
+                        waitFor = typeof wait !== 'undefined' ? wait : duration;
 
                     // TODO: handle loading ? (do not advance until loading ?
                     this.timeout = $timeout(function() {
-                        currentIndex++;
+                        currentIndex += inc;
                         if (currentIndex > (pictures.length - 1)) {
                             currentIndex = 0;
+                        } else if (currentIndex < 0) {
+                            currentIndex = pictures.length -1;
                         }
+                        
                         that.loadFromIndex();
 
-                    }, duration);
+                    }, waitFor);
                 },
                 toggleSlide: function() {
                     if (settings.getValue('slideshow') === true) {

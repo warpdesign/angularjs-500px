@@ -7,7 +7,8 @@ angular.module('angularjs500pxAutomateApp')
         'event',
         'loader',
         'settings',
-        function($scope, event, loader, settings) {
+        'viewer',
+        function($scope, event, loader, settings, viewer) {
             var currentImg = 0;
 
             $scope.isLoading = loader.isLoading;
@@ -16,6 +17,16 @@ angular.module('angularjs500pxAutomateApp')
                 return settings.getValue('fullscreen') === true ? 'fullscreen' : '';
             };
 
+            $scope.swipeLeft = function() {
+                console.log('swipedLeft!');
+                viewer.gotoSlide(1, 0);
+            };
+            
+            $scope.swipeRight = function() {
+                console.log('swipedRight!');
+                viewer.gotoSlide(-1, 0);
+            };            
+            
             function setImageSrc(odd, url) {
                 if (odd) {
                     $scope.photo1 = url;
@@ -27,7 +38,7 @@ angular.module('angularjs500pxAutomateApp')
                     $scope.class1 = 'hidden';
                 }
             }
-
+            
             event.on('viewer.loaded', function(event, photo) {
                 setImageSrc(currentImg++ % 2, photo.image_url);
             });
