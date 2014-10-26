@@ -8,6 +8,8 @@ This small AngularJS app simply loads up 'popular' feed from 500px and displays
 Demo
 ====
 
+![Mosaic Example](img/angularScreenShot.png)
+
 The working application can be seen live [here](http://experiments.warpdesign.fr/angularjs-500px)
 
 Why ?
