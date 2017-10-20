@@ -1,4 +1,5 @@
 {
     "directory": "app/bower_components",
-    "json": "bower.json"
+    "json": "bower.json",
+    "registry": "https://registry.bower.io"
 }
